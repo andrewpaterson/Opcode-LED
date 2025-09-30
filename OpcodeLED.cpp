@@ -24,6 +24,8 @@ uint8 ConvertASCIICharToABCDEFGH(char c)
 	if (c >= 32)
 	{
 		uiPattern = gauiFourteenSegmentASCII[c - 32];
+		SwapBit(&uiPattern, 11, 9);
+		SwapBit(&uiPattern, 12, 7);
 		ui = (uint8)uiPattern;
 		return ui;
 	}
@@ -46,8 +48,9 @@ uint8 ConvertASCIICharToJKPNML(char c)
 	if (c >= 32)
 	{
 		uiPattern = gauiFourteenSegmentASCII[c - 32];
+		SwapBit(&uiPattern, 11, 9);
+		SwapBit(&uiPattern, 12, 7);
 		ui = (uint8)(uiPattern >> 8);
-		SwapBit(&ui, 11 - 8, 12 - 8);
 		return ui;
 	}
 	else
