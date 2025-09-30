@@ -1,0 +1,6 @@
+
+            14 13 12 11 10  9  8  7  6  5  4  3  2  1  0
+14 Segment: DP, N, M, L, K, J, H,G2,G1, F, E, D, C, B, A
+Test Board: DP, P, N, M, L, K, J, H, G, F, E, D, C, B, A
+			
+			
