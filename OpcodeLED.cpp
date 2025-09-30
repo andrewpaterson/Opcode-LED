@@ -12,6 +12,44 @@
 #include "65816OpcodeMnemonics.h"
 
 
+uint16 GetPattern(char c)
+{
+	uint16	uiPattern;
+	uint16	uiMush;
+
+	uiMush = 0;
+	if (c >= 32)
+	{
+		uiPattern = gauiFourteenSegmentASCII[c - 32];
+		SetBit(6, &uiMush, GetBit(8, &uiPattern));
+		SetBit(7, &uiMush, GetBit(9, &uiPattern));
+		SetBit(8, &uiMush, GetBit(10, &uiPattern));
+		SetBit(9, &uiMush, GetBit(7, &uiPattern));
+		SetBit(10, &uiMush, GetBit(13, &uiPattern));
+		SetBit(11, &uiMush, GetBit(12, &uiPattern));
+		SetBit(12, &uiMush, GetBit(11, &uiPattern));
+		SetBit(13, &uiMush, GetBit(6, &uiPattern));
+
+		uiPattern &= 0b111111;
+
+		uiPattern |= uiMush;
+
+		//SwapBit(&uiPattern, 8, 6);
+		//SwapBit(&uiPattern, 9, 7);
+		//SwapBit(&uiPattern, 10, 8);
+		//SwapBit(&uiPattern, 7, 9);
+		//SwapBit(&uiPattern, 13, 10);
+		//SwapBit(&uiPattern, 12, 11);
+		//SwapBit(&uiPattern, 11, 12);
+		//SwapBit(&uiPattern, 6, 13);
+		return uiPattern;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
 ////////////////////////////////////////////////////////////////////////
 
 
@@ -23,9 +61,7 @@ uint8 ConvertASCIICharToABCDEFGH(char c)
 
 	if (c >= 32)
 	{
-		uiPattern = gauiFourteenSegmentASCII[c - 32];
-		SwapBit(&uiPattern, 11, 9);
-		SwapBit(&uiPattern, 12, 7);
+		uiPattern = GetPattern(c);
 		ui = (uint8)uiPattern;
 		return ui;
 	}
@@ -47,9 +83,7 @@ uint8 ConvertASCIICharToJKPNML(char c)
 
 	if (c >= 32)
 	{
-		uiPattern = gauiFourteenSegmentASCII[c - 32];
-		SwapBit(&uiPattern, 11, 9);
-		SwapBit(&uiPattern, 12, 7);
+		uiPattern = GetPattern(c);
 		ui = (uint8)(uiPattern >> 8);
 		return ui;
 	}
