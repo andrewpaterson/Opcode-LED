@@ -7,6 +7,7 @@
 #include "BaseLib/Numbers.h"
 #include "BaseLib/NaiveFile.h"
 #include "BaseLib/FileUtil.h"
+#include "BaseLib/IntegerHelper.h"
 #include "14SegmentASCII.h"
 #include "65816OpcodeMnemonics.h"
 
@@ -46,6 +47,7 @@ uint8 ConvertASCIICharToJKPNML(char c)
 	{
 		uiPattern = gauiFourteenSegmentASCII[c - 32];
 		ui = (uint8)(uiPattern >> 8);
+		SwapBit(&ui, 11 - 8, 12 - 8);
 		return ui;
 	}
 	else
